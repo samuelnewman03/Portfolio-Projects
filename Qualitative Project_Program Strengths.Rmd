@@ -6,7 +6,7 @@ output: html_document
 ---
 
 Background:
-TThe data comes from one qualitative question asked in a survey that was given to
+The data comes from one qualitative question asked in a survey that was given to
 a universities (named disclosed for confidentiality) 2nd year MPP students (n = 269) 
 from 2019-2023. The question was free-response and asked students to list their strengths about the UCLA MPP 
 program. This script preforms thematic analysis by tallying the total number 
