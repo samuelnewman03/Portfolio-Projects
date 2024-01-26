@@ -57,8 +57,9 @@ nrow(rent_law)
 # determine the effect education has on wage and control for other variables for the current_pop_survey_78_95
 ```{r}
 lm1 <- lm(lwage ~ educ + female + married + union + exper +y85, current_pop_survey_78_95)
-
 summary(lm1)
+plot(lm1)
+#this plot generates the image of the regression shown in the portfolio 
 ```
 
 Interpretation: 
