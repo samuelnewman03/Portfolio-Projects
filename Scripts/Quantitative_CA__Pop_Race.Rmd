@@ -6,7 +6,8 @@ output: html_document
 ---
 
 Background: 
-This script was part of an assignment to update California's population count from the U.S. Census Bureau (https://data.census.gov/table/ACSDP5Y2022.DP05?g=860XX00US06902). The data is cleaned, manipulated, and presented in a pie chart. The data is subseted to include seven prominent races in California. 
+This script was part of an assignment to update California's population count from the U.S. Census Bureau (https://data.census.gov/table/ACSDP5Y2022.DP05?g=860XX00US06902). 
+The data is cleaned, manipulated, and presented in a pie chart. The data is subseted to include seven prominent races in California. 
 
 Outline: 
 
