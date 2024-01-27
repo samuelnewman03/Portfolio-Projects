@@ -1,0 +1,138 @@
+---
+title: "PDST"
+author: "Sam Newman"
+date: "2023-10-09"
+output: html_document
+---
+
+Background:
+The data comes from one qualitative question asked in a survey that was given to
+a universities (named disclosed for confidentiality) 2nd year MPP students (n=79)
+from 2022-2023. The question was free-response and asked students for their opinion on 
+increasing Professional Degree Supplemental Tuition (PDST) fees for MPP students. 
+The fees act like a tax that all MPP students pay and the money is then distributed
+to other students in great financial need. The data is partially cleaned in the script, 
+but mostly cleaned in word. The results are then visualized in a bar chart. 
+
+Outline: 
+1. Clean Data
+2. Visualize Data
+
+# load libraries 
+```{r}
+library(tidyverse)
+library(readxl)
+library(writexl)
+library(stringr)
+library(gt)
+```
+#set working directory 
+```{r}
+setwd("C:/Grad School/Student Affairs/Exit Survey")
+```
+
+
+# load clean exit survey data 2019-2023 (object is created in 'Exit Survey_Analysis_2')
+```{r}
+sub_e2019_2023 <- readRDS("sub_e2019_2023.rds")
+
+```
+
+Since pdst is mostly qualitative I am going to export the data into an excel sheet. But first, I will clean the data by consolidating NAs and then removing them form the data set. 
+
+# create subset for data and intial investigation variable 
+```{r}
+pdst <- sub_e2019_2023 %>%  select(pdst, year)
+
+#160 NAs to start 
+sum(is.na(pdst$pdst))
+
+#269 observations
+length(pdst$pdst)
+
+view(pdst)
+
+#Types of NA: c('n/a', N/a, N/A, N/A, NA)
+#convert the NAs above into NA that R recognizes 
+pdst_clean <- pdst %>%  filter(
+  pdst != 'n/a', 
+  pdst != 'N/a', 
+  pdst != 'N/A', 
+  pdst != 'NA', 
+  pdst != 'yes', 
+  pdst != 'Unsure', 
+  pdst != '-', 
+  pdst != 'Na', 
+  pdst != "No response", 
+  pdst != "No comment", 
+  pdst != "none")
+
+#length is now 84 observatoins
+length(pdst_clean$pdst)
+
+#0 NAs
+sum(is.na(pdst_clean))
+
+#save file as excel sheet to perform qualitative analysis 
+write_xlsx(pdst_clean, "pdst_clean.xlsx")
+
+```
+
+I have removed 3 comments from the observations.
+I exported the file to Excel where I read each entry and assigned it to "Yes", "No", or "Other". I then tallied the results in Word. 
+
+*Create Bar Chart* 
+I will create a df that contains the tallies for the responses and then visualize the results in a bar chart. 
+                          
+# create data frame containing count for PDST
+```{r}
+pdst_count <- data.frame(
+ response = c("Yes", "No", "Other"),
+ mentions = as.numeric(c(21, 41, 16)))
+
+
+#check class types 
+class(pdst_count$response) #character
+
+class(pdst_count$mentions) #numeric 
+
+```
+# factor answers 
+```{r}
+#create new object 
+factor_pdst_count <- pdst_count
+
+factor_pdst_count$response <- factor(
+ factor_pdst_count$response, levels = c(
+             "Yes", 
+              "No",
+              "Other"))
+
+#check class type (it's factor - good)
+class(factor_pdst_count$response)
+
+```
+#create bar chart for favorite courses
+```{r}
+ggplot(factor_pdst_count, aes(x = response , 
+                             y = mentions, 
+                             )) +
+  geom_bar(
+         stat = 'identity',
+         fill = "lightblue",
+           position = "dodge",  #makes bar chart side by side
+           color = "black", #adds outline color to bins
+         na.rm = TRUE, 
+         width = .5) +
+  scale_y_continuous(
+    limits = c(0, 45),                
+    breaks = seq(0,45, 5)) +
+          labs (x = "", 
+                y = "Number of Student Responses",
+                title = "Student Responses to Increasing PDST Fees \n (2022-2023)")+
+       theme(
+         axis.text = element_text( hjust = .5, size =10.5), 
+         plot.caption = element_text(hjust = 1, ), 
+         plot.title = element_text(hjust = .5, face = "bold", size = 12))+
+          labs(caption ="n= 78 student responses") 
+```
