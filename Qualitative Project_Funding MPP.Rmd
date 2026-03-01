@@ -15,7 +15,7 @@ mentioned types of funding.
 
 Outline: 
 1. Clean Data
-2. Visualize Data
+3. Visualize Data
 
 ```{r}
 library(tidyverse)
