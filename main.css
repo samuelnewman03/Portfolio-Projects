@@ -2595,75 +2595,55 @@ input, select, textarea {
 
 /* Image */
 
-	.image {
-		border: 0;
-		display: inline-block;
-		position: relative;
-	}
+.image.left, .image.right {
+    max-width: 40%;
+}
 
-		.image img {
-			display: block;
-		}
+.image.left img, .image.right img {
+    width: 100%;
+}
 
-		.image.left, .image.right {
-			max-width: 40%;
-		}
+.image.left {
+    float: left;
+    margin: 0 2rem 2rem 0;
+    top: 0.75rem;
+}
 
-			.image.left img, .image.right img {
-				width: 100%;
-			}
+.image.right {
+    float: right;
+    margin: 0 0 2rem 2rem;
+    top: 0.75rem;
+}
 
-		.image.left {
-			float: left;
-			margin: 0 2rem 2rem 0;
-			top: 0.75rem;
-		}
+.image.fit,
+.image.main {
+    display: block;
+    margin: 2.5rem 0;  /* keep spacing consistent */
+    text-align: center; /* center images */
+}
 
-		.image.right {
-			float: right;
-			margin: 0 0 2rem 2rem;
-			top: 0.75rem;
-		}
+.image.fit:first-child,
+.image.main:first-child {
+    margin-top: 0;
+}
 
-		.image.fit {
-			display: block;
-			margin: 2.5rem 0;
-			width: 100%;
-		}
+.image.fit img,
+.image.main img {
+    max-width: 100%; /* prevents stretching */
+    height: auto;    /* preserves aspect ratio */
+    display: inline-block;
+}
 
-			.image.fit:first-child {
-				margin-top: 0;
-			}
+@media screen and (max-width: 736px) {
 
-			.image.fit img {
-				width: 100%;
-			}
+    .image.fit {
+        margin: 2rem 0;
+    }
 
-		.image.main {
-			display: block;
-			margin: 4rem 0;
-			width: 100%;
-		}
-
-			.image.main:first-child {
-				margin-top: 0;
-			}
-
-			.image.main img {
-				width: 100%;
-			}
-
-		@media screen and (max-width: 736px) {
-
-			.image.fit {
-				margin: 2rem 0;
-			}
-
-			.image.main {
-				margin: 2rem 0;
-			}
-
-		}
+    .image.main {
+        margin: 2rem 0;
+    }
+}
 
 	a.image {
 		overflow: hidden;
@@ -4712,15 +4692,4 @@ input, select, textarea {
 		opacity: 1;
 		transform: translateX(0);
 	}
-}
-
-/* ================= CONTACT SECTION ================= */
-#contact {
-    background-color: #ffffff;    /* white background */
-    color: #000000;               /* readable text */
-    padding: 4em 2em;             /* spacing */
-    border-top: 2px solid #e2e2e2;    /* top border */
-    border-bottom: 2px solid #e2e2e2; /* bottom border */
-    border-left: 2px solid #e2e2e2;   /* left border */
-    border-right: 2px solid #e2e2e2;  /* right border */
 }
